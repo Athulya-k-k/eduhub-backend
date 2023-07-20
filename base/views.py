@@ -91,7 +91,7 @@ def activate(request, uidb64, token):
         user.save()
       
 
-        return HttpResponseRedirect('http://localhost:3000/login')
+        return HttpResponseRedirect('https://eduhub-learn.netlify.app/login')
     
 class Listuser(ListCreateAPIView):
     queryset = User.objects.filter(is_admin=False)
@@ -148,7 +148,7 @@ class ResetPassword(APIView):
 
             return Response({'msg': 'Password Updated Successfully'})
     
-        return HttpResponseRedirect('http://localhost:3000/reset-password')
+        return HttpResponseRedirect('https://eduhub-learn.netlify.app/reset-password')
     
     
 class ChangeImage(APIView):
