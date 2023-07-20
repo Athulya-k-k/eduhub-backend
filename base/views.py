@@ -61,7 +61,7 @@ class UserRegistration(APIView):
             
             message = render_to_string('accounts/account_verification_email.html', {
                 'user': user,
-                'domain': current_site,
+                'domain': 'https://eduhub-learn.netlify.app',
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': default_token_generator.make_token(user),
                 'usename': urlsafe_base64_encode(force_bytes(user.username))
