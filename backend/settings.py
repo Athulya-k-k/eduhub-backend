@@ -199,7 +199,7 @@ AUTH_USER_MODEL ='base.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "https://eduhub-learn.netlify.app/",
+    "https://eduhub-site.netlify.app/",
 ]
 
 CORS_ALLOW_ALL_HEADERS  = True
