@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+from decouple import config
 from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,7 +21,7 @@ from datetime import timedelta
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-lzs*@q%u6t0f3^0g1lt5&9(+%^%2c42%c$30-qw1fc_^!y2a+b'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -199,7 +199,8 @@ AUTH_USER_MODEL ='base.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "https://eduhub-site.netlify.app/",
+     config('CORS_ALLOWED'),
+     'http://localhost:3000/'
 ]
 
 CORS_ALLOW_ALL_HEADERS  = True
@@ -210,7 +211,7 @@ CORS_ALLOW_ALL_METHODS = True
 
 EMAIL_HOST ='smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'athulyaathu.uk@gmail.com'
-EMAIL_HOST_PASSWORD = 'nizgsczwxdjabqdj'
+EMAIL_HOST_USER =config('EMAIL_HOST_USER ')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
