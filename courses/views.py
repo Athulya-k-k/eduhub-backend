@@ -15,6 +15,8 @@ from courses.models import Course,EnrolledCourse
 from payment.serializers import EnrolledSerializer
 from rest_framework.generics import ListCreateAPIView
 from .serializers import CourseSerializer, CategorySerializer, PostCourseSerializer
+from rest_framework import status
+
 
 
 
@@ -43,16 +45,19 @@ class CourseDeleteView(APIView):
 
 
 class CourseUpdateView(APIView):
-    def put(self, request, course_id):
-        course = Course.objects.get(id=course_id)
-        serializer = PostCourseSerializer(course, data=request.data)
+    def patch(self, request, course_id):
+        try:
+            course = Course.objects.get(id=course_id)
+        except Course.DoesNotExist:
+            return Response({"msg": "Course not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = PostCourseSerializer(course, data=request.data, partial=True)
         
         if serializer.is_valid():
             serializer.save()
             return Response({"msg": "Course updated successfully"})
         else:
-            print(serializer.errors)
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CreateCourse(APIView):
@@ -93,6 +98,21 @@ class CategoryUpdateView(APIView):
             return Response({"msg": "Category updated successfully"})
         else:
             return Response(serializer.errors)
+
+# class CategoryUpdateView(APIView):
+#     def patch(self, request, cat_id):
+#         try:
+#             category= Category.objects.get(id=cat_id)
+#         except Category.DoesNotExist:
+#             return Response({"msg": "Category not found"}, status=status.HTTP_404_NOT_FOUND)
+
+#         serializer = CategorySerializer(category, data=request.data)
+        
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({"msg": "Category updated successfully"})
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CreateCategory(APIView):
